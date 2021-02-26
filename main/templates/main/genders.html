@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+genders page
+{% endblock %}
+
+{% block content %}
+
+{% for item in content_array%}
+<h5>{{item.gender}}</h5>
+{% if item.description != Null %}
+<h3>{{item.description}}</h3>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
