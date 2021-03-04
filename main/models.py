@@ -28,6 +28,9 @@ class Genre(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return self.genre_name
+
 class Person(models.Model):
     person_full_name = models.CharField(
         'full name',
@@ -127,6 +130,9 @@ class Role(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.person.person_full_name + " is a(n) " + self.roletype.roletype_name + " in " + self.film.film_name
+
 class FilmToGenre(models.Model):
     film = models.ForeignKey(
         Film,
@@ -137,6 +143,9 @@ class FilmToGenre(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.film.film_name + " is a " + self.genre.genre_name
+
 class FilmToStudio(models.Model):
     film = models.ForeignKey(
         Film,
@@ -146,3 +155,6 @@ class FilmToStudio(models.Model):
         Studio,
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.film.film_name + " created by " + self.studio.studio_name

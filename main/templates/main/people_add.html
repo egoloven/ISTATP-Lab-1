@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+person add page
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form.person_full_name.label}}
+    {{form.person_full_name}}<br>
+    {{form.person_date_of_birth.label}}
+    {{form.person_date_of_birth}}<br>
+    {{form.person_date_of_death.label}}
+    {{form.person_date_of_death}}<br>
+    {{form.gender.label}}
+    {{form.gender}}<br>
+    <button type="submit">Add Person</button>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{person.full_name}}
+{% endblock %}
+
+{% block content %}
+
+<h1>Person: {{person.full_name}}</h1>
+<h3>Birth date: {{person.date_of_birth}}</h3>
+<h3>Death date: {{person.date_of_death}}</h3>
+<h3>Gender: {{person.gender}}</h3>
+
+
+{% endblock %}

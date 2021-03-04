@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+films page
+{% endblock %}
+
+{% block content %}
+
+
+{% for item in content_array%}
+<h3>{{item.full_name}}</h3>
+{% empty %}
+<h3>there are no films here</h3>
+{% endfor %}
+
+
+{% endblock %}
