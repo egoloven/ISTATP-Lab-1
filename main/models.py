@@ -46,6 +46,9 @@ class Person(models.Model):
     def __str__(self):
         return self.person_full_name
 
+    def get_absolute_url(self):
+        return f'/people/{self.id}'
+
 # Studious class definition
 
 class Studio(models.Model):

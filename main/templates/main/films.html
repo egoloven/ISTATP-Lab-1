@@ -7,11 +7,21 @@ films page
 {% block content %}
 
 
-{% for item in content_array%}
-<h3>{{item.full_name}}</h3>
-{% empty %}
-<h3>there are no films here</h3>
-{% endfor %}
+<h2>Films</h2>
+    <ul>
+        {% for film in object_list %}
+            <li>
+                {{ film.film_name }}
+                {# <a href="{% url 'person' person.id %}">more info</a> #}
+                {# <a href="{% url 'person_update' person.id %}">update info</a> #}
+                {# <a href="{% url 'person_delete' person.id %}">delete</a> #}
+            </li>
+        {% empty %}
+            <p>There are no people here</p>
+        {% endfor %}
+    </ul>
+
+{# <a href="{% url 'people_add' %}"><button>Add a person</button></a> #}
 
 
 {% endblock %}
