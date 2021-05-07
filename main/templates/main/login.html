@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+person add page
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h3>You are already logged in</h3>
+
+{% else %}
+<form method="post">
+    {% csrf_token %}
+    {% for item in form %}
+    {{item}}<br>
+    {% endfor %}
+    <span>{% if error %}{{error}}{% endif %}</span>
+    <button type="submit" class="btn btn-light">Login</button>
+</form>
+{% endif %}
+
+{% endblock %}

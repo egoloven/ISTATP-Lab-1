@@ -7,21 +7,80 @@ people page
 {% block content %}
 
 
-<h2>People</h2>
-    <ul>
-        {% for person in object_list %}
-            <li>
-                {{ person.person_full_name }}
-                <a href="{% url 'person' person.id %}">more info</a>
-                <a href="{% url 'person_update' person.id %}">update info</a>
-                <a href="{% url 'person_delete' person.id %}">delete</a>
-            </li>
-        {% empty %}
-            <p>There are no people here</p>
-        {% endfor %}
-    </ul>
+<h2 class="text-center">People</h2>
 
-<a href="{% url 'people_add' %}"><button>Add a person</button></a>
+{% if user.is_authenticated %}
+<table class="table">
+        <tr>
+            <th style="width: 40%"></th>
+            <th style="width: 20%"></th>
+            <th style="width: 20%"></th>
+            <th style="width: 30%"></th>
+        </tr>
+{% for person in object_list %}
+<ul class="list-group list-group-flush" >
+    <li class="list-group-item">
+        <tr>
+            <td>{{ person.person_full_name }}</td>
+            {% if user.is_staff %}
+            <td><a class="nav-link" href="{% url 'person' person.id %}">more info</a></td>
+
+            <td><a class="nav-link" href="{% url 'person_update' person.id %}">update info</a></td>
+            <td><a class="nav-link" tabindex="-1" href="{% url 'person_delete' person.id %}">delete</a></td>
+            {% else %}
+            <td></td>
+            <td></td>
+            <td><a class="nav-link" href="{% url 'person' person.id %}">more info</a></td>
+            {% endif %}
+        </tr>
+    </li>
+</ul>
+{% empty %}
+            <p>There are no people here</p>
+{% endfor %}
+
+</table>
+{% if user.is_staff %}
+<a href="{% url 'people_add' %}"><button type="button" class="btn btn-light">Add a person</button></a>
+<a href="{% url 'people_upload' %}"><button type="button" class="btn btn-light">Upload</button></a>
+{% endif %}
+<div class="jumbotron vertical-center">
+<div id="chart_div" style="width:400; height:300"></div>
+</div>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+     // Load the Visualization API and the piechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+    function drawChart() {
+      // Create the data table.
+
+    let jsonString = '{{people_json}}'.replaceAll('&#x27;', '"');
+    console.log(jsonString)
+    let json = JSON.parse(jsonString);
+    var data = new google.visualization.DataTable(json, false);
+
+      // Set chart options
+    var options = {'title':'Distribution of age of people',
+                     'width':800,
+                     'height':600};
+
+      // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+    }
+</script>
+{% else %}
+<h4 class="text-center">You need to log in to see it</h4>
+{% endif %}
 
 
 {% endblock %}

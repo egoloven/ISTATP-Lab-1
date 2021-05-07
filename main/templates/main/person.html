@@ -6,15 +6,27 @@
 
 {% block content %}
 
-<h1>Person: {{person.person_full_name}}</h1>
-<h3>Birth date: {{person.person_date_of_birth}}</h3>
-<h3>Death date: {{person.person_date_of_death}}</h3>
-<h3>Gender: {{person.gender}}</h3>
-<h3>Films:</h3>
-{% for item in roles%}
-<li>
-    {{item.film.film_name}}
-</li>
-{% endfor %}
+{{content_array}}
 
+<h1 class="text-center">Person: {{person.person_full_name}}</h1>
+<table class="table">
+        <tr>
+            <th style="width: 50%"></th>
+            <th style="width: 50%"></th>
+        </tr>
+        <tr><td><h3>Birth date:</h3></td><td><h3>{{person.person_date_of_birth}}</h3></td></tr>
+        {% if person.person_date_of_death %}
+            <tr><td><h3>Death date:</h3></td><td><h3>{{person.person_date_of_death}}</h3></td></tr>
+        {% else %}
+        {% endif %}
+        <tr><td><h3><h3>Gender:</h3></td><td><h3>{{person.gender}}</h3></td></tr>
+</table>
+<h3 class="text-center">Films:</h3>
+<div class="list-group">
+{% for item in roles%}
+    <a href="{% url 'film' item.film.id %}" class="list-group-item list-group-item-action">
+    <h3 class="text-center">{{item.film.film_name}}</h3>
+    </a>
+{% endfor %}
+</div>
 {% endblock %}

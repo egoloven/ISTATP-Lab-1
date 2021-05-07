@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{person.full_name}}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Film: {{film.film_name}}</h1>
+<table class="table">
+        <tr>
+            <th style="width: 50%"></th>
+            <th style="width: 50%"></th>
+        </tr>
+        <tr><td><h3>Film description:</h3></td><td><h3>{{film.film_description}}</h3></td></tr>
+        <tr><td><h3>Film duration:</h3></td><td><h3>{{film.film_duration}}</h3></td></tr>
+        <tr><td><h3><h3>Film-type:</h3></td><td><h3>{{film.filmtype}}</h3></td></tr>
+</table>
+<h3 class="text-center">Crew:</h3>
+<div class="list-group">
+{% for item in roles%}
+
+    <a href="{% url 'person' item.person.id%}" class="list-group-item list-group-item-action">
+    <h3 class="text-center">{{item}}</h3>
+    </a>
+{% endfor %}
+
+{% endblock %}
+</div>

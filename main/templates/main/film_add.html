@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+film add page
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form.film_name.label}}
+    {{form.film_name}}<br>
+    {{form.film_description.label}}
+    {{form.film_description}}<br>
+    {{form.film_duration.label}}
+    {{form.film_duration}}<br>
+    {{form.filmtype.label}}
+    {{form.filmtype}}<br>
+    <button type="submit">Add Film</button>
+</form>
+
+
+{% endblock %}

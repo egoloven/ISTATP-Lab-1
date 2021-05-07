@@ -34,7 +34,8 @@ class Genre(models.Model):
 class Person(models.Model):
     person_full_name = models.CharField(
         'full name',
-        max_length=60
+        max_length=60,
+        unique=True
     )
     person_date_of_birth = models.DateField()
     person_date_of_death = models.DateField(blank=True, null=True)
@@ -102,6 +103,9 @@ class Film(models.Model):
 
     def __str__(self):
         return self.film_name
+
+    def get_absolute_url(self):
+        return f'/films/{self.id}'
 
 class RoleType(models.Model):
     # maybe make small class [DR, AC, PR, ...] like enum

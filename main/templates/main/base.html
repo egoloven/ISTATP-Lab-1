@@ -4,13 +4,41 @@
 	<meta charset="utf-8">
 	<title>{% block title %}{% endblock %}</title>
 	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/bootstrap.min.css' %}">
 </head>
 
 <body>
+	<header class="p-3 bg-dark text-white">
+  		<div class="container">
+    		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      			<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        		<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      			</a>
+
+      			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        		<li><a href="{% url 'films' %}" class="nav-link px-2 text-white">Films</a></li>
+        		<li><a href="{% url 'people' %}" class="nav-link px-2 text-white">People</a></li>
+            {% if user.is_staff %}
+            <li><a href="admin" class="nav-link px-2 text-white">Admin Panel</a></li>
+            {% endif %}
+      			</ul>
+            {% if user.is_authenticated %}
+            <div class="text-end">
+              <button type="button" class="btn btn-outline-light me-2">{{user.username}}</button>
+              <a href="{% url 'logout' %}"><button type="button" class="btn btn-warning">Logout</button></a>
+            </div>
+            {% else %}
+      			<div class="text-end">
+              <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+              <a href="{% url 'sign_up' %}"><button type="button" class="btn btn-warning">Sign-up</button></a>
+            </div>
+            {% endif %}
+    		</div>
+  		</div>
+	</header>
 	<div class="header">
 	</div>
-	<div class="paragraph">
+	<div class="mx-auto" style="width: 700px;">
 		{% block content %}
 		{% endblock %}
 	</div>
